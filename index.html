@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no, address=no, email=no, date=no">
+    <title>岭南市 · 虚拟规划门户</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background: #e8edf4;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            padding: 35px 45px 40px;
+            box-shadow: 0 20px 50px rgba(0, 20, 40, 0.10);
+            position: relative;
+            overflow: hidden;
+        }
+        a, a:link, a:visited, a:hover, a:active {
+            text-decoration: none !important;
+            color: inherit !important;
+        }
+        .nav a, .nav a:link, .nav a:visited {
+            text-decoration: none !important;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e9edf4;
+            padding-bottom: 18px;
+        }
+        .city-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0a2540;
+        }
+        .city-sub {
+            font-size: 16px;
+            color: #5b6f82;
+            background: #eef2f7;
+            padding: 4px 20px;
+            border-radius: 40px;
+        }
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 28px;
+            margin: 22px 0 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav a {
+            text-decoration: none !important;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            padding: 6px 2px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: 0.2s;
+        }
+        .nav a.active {
+            color: #1a5a8a;
+            border-bottom-color: #1a5a8a;
+        }
+        .nav a:hover {
+            color: #0a2a44;
+            border-bottom-color: #8aafcf;
+        }
+        .page {
+            display: block;
+            animation: fadeUp 0.25s ease;
+        }
+        .page.hidden {
+            display: none;
+        }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .slogan {
+            background: linear-gradient(135deg, #f0f5fe, #e6edf8);
+            border-radius: 24px;
+            padding: 24px 32px;
+            margin: 8px 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .slogan h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #163753;
+        }
+        .slogan span {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 4px 24px;
+            border-radius: 60px;
+            font-weight: 500;
+            color: #1c4a6e;
+            font-size: 15px;
+        }
+        .card {
+            background: #fafcff;
+            border-radius: 24px;
+            padding: 22px 26px;
+            margin-bottom: 20px;
+            border: 1px solid #eef3f9;
+            transition: 0.2s;
+        }
+        .card:hover {
+            border-color: #d5e0ed;
+        }
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a3450;
+            border-left: 5px solid #2b6f9e;
+            padding-left: 16px;
+            margin-bottom: 14px;
+        }
+        .card p {
+            color: #2e445c;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .card ul li {
+            padding: 5px 0 5px 24px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%232b6f9e" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>') left center no-repeat;
+            background-size: 14px;
+            font-size: 15px;
+            color: #2a4058;
+        }
+        .badge {
+            background: #dee9f5;
+            padding: 2px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1e3f61;
+        }
+        .org {
+            background: #f6faff;
+            border-radius: 28px;
+            padding: 28px 30px;
+            margin: 16px 0 20px;
+            border: 1px solid #e1ebf5;
+        }
+        .org .title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0a2a44;
+            margin-bottom: 18px;
+        }
+        .org-level {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+            align-items: center;
+        }
+        .org-root {
+            background: #1c3a5a;
+            color: white;
+            padding: 12px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 18px;
+            white-space: nowrap;
+        }
+        .org-branches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+        }
+        .org-item {
+            background: white;
+            border: 1px solid #cdddee;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #1b3c5e;
+            font-size: 15px;
+            /* 不可点击，不变色 */
+            cursor: default;
+            user-select: none;
+        }
+        .org-item.rail {
+            background: #fff;
+            border-color: #cdddee;
+            color: #1b3c5e;
+        }
+        .support-line {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px dashed #c7d8ea;
+            font-size: 14px;
+            color: #3a5b7a;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 28px;
+            align-items: center;
+        }
+        .support-line strong {
+            font-weight: 600;
+            color: #133454;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #5b738b;
+            border-top: 1px solid #e4ebf3;
+            padding-top: 22px;
+        }
+        .profile-card {
+            background: linear-gradient(145deg, #f0f6ff, #e8effa);
+            border-radius: 24px;
+            padding: 28px 30px;
+            margin: 10px 0 18px;
+            border: 1px solid #d0dfef;
+        }
+        .profile-card .name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a2540;
+        }
+        .profile-card .title {
+            font-size: 17px;
+            color: #1f5a85;
+            font-weight: 600;
+            margin: 4px 0 14px;
+        }
+        .profile-card .info-row {
+            font-size: 15px;
+            color: #1f3a55;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .profile-card .info-row:last-of-type {
+            border-bottom: none;
+        }
+        .profile-card .bio {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 2px dashed #b8cee5;
+            font-size: 18px;
+            color: #0a2a44;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .profile-card .contact {
+            margin-top: 12px;
+            font-size: 15px;
+            color: #3a5f7a;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 6px 20px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        .join-highlight {
+            background: #f0f6ff;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin: 6px 0 14px;
+            border-left: 5px solid #1a5a8a;
+        }
+        .join-highlight .qq {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a5a8a;
+            letter-spacing: 1px;
+        }
+        .join-dir {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 14px;
+            margin-top: 8px;
+        }
+        .join-dir span {
+            background: #eef2f7;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            color: #1f3a55;
+        }
+        .join-benefit {
+            padding: 5px 0 5px 24px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%232b6f9e" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>') left center/16px no-repeat;
+            font-size: 15px;
+            color: #2a4058;
+            line-height: 1.8;
+        }
+        .bottom-tip {
+            text-align: center;
+            padding: 30px 10px 16px;
+            font-size: 18px;
+            color: #8aa3bc;
+            letter-spacing: 2px;
+        }
+        .bottom-tip span {
+            display: block;
+            font-size: 40px;
+            margin-bottom: 6px;
+        }
+        /* 部门列表卡片（独立页面） */
+        .dept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 16px 0 20px;
+        }
+        .dept-grid .dept-card {
+            background: #f8fbff;
+            border: 1px solid #e4eef9;
+            border-radius: 20px;
+            padding: 20px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .dept-grid .dept-card:hover {
+            background: #eaf2fc;
+            border-color: #b0cce0;
+            transform: translateY(-2px);
+        }
+        .dept-grid .dept-card .dept-icon {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .dept-grid .dept-card .dept-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0a2540;
+        }
+        /* 部门详情子页面 */
+        .dept-detail {
+            display: none;
+        }
+        .dept-detail.active {
+            display: block;
+        }
+        .dept-detail .detail-card {
+            background: #f8fbff;
+            border-radius: 24px;
+            padding: 32px 36px;
+            margin: 16px 0 10px;
+            border: 1px solid #e4eef9;
+            text-align: center;
+        }
+        .dept-detail .detail-card .big-icon {
+            font-size: 56px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .dept-detail .detail-card .dept-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a2540;
+        }
+        .dept-detail .detail-card .dept-desc {
+            font-size: 16px;
+            color: #3a5f7a;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        .dept-detail .detail-card .back-link {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 8px 28px;
+            background: #1a3a5a;
+            color: #fff !important;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .dept-detail .detail-card .back-link:hover {
+            background: #0a2a44;
+        }
+        /* 隐藏部门列表 */
+        .dept-list.hidden {
+            display: none;
+        }
+
+        /* 欢迎页 */
+        .splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #f0f6fe 0%, #dce6f2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            text-align: center;
+            padding: 30px;
+        }
+        .splash.hidden {
+            opacity: 0;
+            transform: scale(1.02);
+            pointer-events: none;
+        }
+        .splash .city-icon {
+            font-size: 72px;
+            margin-bottom: 12px;
+        }
+        .splash h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #0a2540;
+            letter-spacing: 4px;
+        }
+        .splash .sub {
+            font-size: 20px;
+            color: #2a577a;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 6px 28px;
+            border-radius: 60px;
+            margin-top: 6px;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+        .splash .desc {
+            max-width: 520px;
+            margin: 22px auto 16px;
+            font-size: 17px;
+            color: #1f3a57;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+        .splash .desc em {
+            font-style: normal;
+            color: #1a5a8a;
+            font-weight: 600;
+        }
+        .splash .footer-line {
+            font-size: 18px;
+            color: #2a577a;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+        .btn-enter {
+            margin-top: 28px;
+            padding: 14px 52px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            background: #1a3a5a;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 6px 20px rgba(26, 58, 90, 0.25);
+            letter-spacing: 2px;
+        }
+        .btn-enter:hover {
+            background: #0a2a44;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(26, 58, 90, 0.30);
+        }
+        .btn-enter:active {
+            transform: scale(0.96);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 18px 16px 28px; border-radius: 24px; }
+            .city-name { font-size: 24px; }
+            .city-sub { font-size: 12px; padding: 3px 12px; }
+            .nav { gap: 4px 14px; }
+            .nav a { font-size: 14px; }
+            .slogan { flex-direction: column; text-align: center; gap: 10px; padding: 18px 16px; }
+            .slogan h2 { font-size: 20px; }
+            .org-level { flex-direction: column; align-items: flex-start; }
+            .org-root { white-space: normal; font-size: 16px; padding: 10px 22px; }
+            .profile-card .name { font-size: 24px; }
+            .join-dir span { font-size: 13px; padding: 4px 14px; }
+            .card { padding: 16px 16px; }
+            .org { padding: 18px 16px; }
+            .profile-card { padding: 20px 18px; }
+            .support-line { flex-direction: column; align-items: flex-start; gap: 6px; }
+            .support-line span { font-size: 13px; }
+            .dept-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .dept-detail .detail-card { padding: 22px 18px; }
+            .dept-detail .detail-card .dept-name { font-size: 22px; }
+            .splash h1 { font-size: 32px; }
+            .splash .sub { font-size: 16px; padding: 4px 18px; }
+            .splash .desc { font-size: 15px; padding: 0 10px; }
+            .btn-enter { padding: 12px 36px; font-size: 18px; }
+        }
+        @media (max-width: 480px) {
+            .splash .city-icon { font-size: 52px; }
+            .splash h1 { font-size: 26px; }
+            .splash .sub { font-size: 14px; }
+            .splash .desc { font-size: 14px; }
+            .btn-enter { padding: 10px 28px; font-size: 16px; }
+            .dept-grid { grid-template-columns: 1fr 1fr; }
+            .dept-grid .dept-card { padding: 14px 10px; }
+            .dept-grid .dept-card .dept-icon { font-size: 28px; }
+            .dept-grid .dept-card .dept-name { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 欢迎页 ===== -->
+    <div class="splash" id="splash">
+        <div class="city-icon">🏙️</div>
+        <h1>岭南市</h1>
+        <div class="sub">Lingnan City · 虚拟规划门户</div>
+        <div class="desc">
+            一座以规划驱动、数字赋能的虚拟城市<br>
+            秉持「前瞻 · 务实 · 开放」理念<br>
+            在这里，<em>岭南灵韵</em>与现代新城交相辉映<br>
+            每一寸土地，都承载着对未来的想象
+        </div>
+        <div class="footer-line">🌆 岭南市，期待与你相遇</div>
+        <button class="btn-enter" id="enterBtn">进入网站</button>
+    </div>
+
+    <!-- ===== 主内容 ===== -->
+    <div class="container">
+
+        <div class="header">
+            <span class="city-name">🌆 岭南市</span>
+            <span class="city-sub">Lingnan City · 虚拟都市</span>
+        </div>
+
+        <div class="nav">
+            <a href="#" class="active" data-page="home">首页</a>
+            <a href="#" data-page="team">团队运营</a>
+            <a href="#" data-page="about">关于岭南</a>
+            <a href="#" data-page="org">组织架构</a>
+            <a href="#" data-page="dept">部门详情</a>
+            <a href="#" data-page="join">加入我们</a>
+        </div>
+
+        <!-- ===== 首页 ===== -->
+        <div id="page-home" class="page">
+            <div class="slogan">
+                <h2>🏙️ 岭南启新 · 方域拓途</h2>
+                <span>日新月异 · 共筑未来</span>
+            </div>
+            <div class="card">
+                <h3>📌 城市发展简报</h3>
+                <p><strong>岭南市</strong> 虚拟城市规划持续迭代，重点推进 <span class="badge">岭西区</span> 与 <span class="badge">岭东区</span> 两大板块。</p>
+                <ul>
+                    <li>岭南市城市建设局 · 路网优化方案</li>
+                    <li>岭南市城市发展规划局 · 年度经济报告</li>
+                    <li>岭南市都市研究院 · 交通研究成果</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>⚙️ 运营管理动态</h3>
+                <ul>
+                    <li>岭南市行政办公厅 · 流程标准化</li>
+                    <li>岭南市城市交通运输局 · 智能调度测试</li>
+                    <li>岭南市数字宣传中心 · 视觉更新，互联网世界新启航</li>
+                    <li>岭南市对外联络部 · 跨区域合作筹备中</li>
+                </ul>
+            </div>
+            <div class="org">
+                <div class="title">🏛️ 组织架构</div>
+                <div class="org-level">
+                    <div class="org-root">岭南市 · 市政团队</div>
+                    <div class="org-branches">
+                        <span class="org-item">行政办公厅</span>
+                        <span class="org-item">发展规划局</span>
+                        <span class="org-item">城市建设局</span>
+                        <span class="org-item">交通运输局</span>
+                        <span class="org-item">对外联络部</span>
+                        <span class="org-item">数字宣传中心</span>
+                        <span class="org-item">岭南都市研究院</span>
+                        <span class="org-item rail">🚇 城市轨道交通有限公司</span>
+                    </div>
+                </div>
+                <div class="support-line">
+                    <strong>🔹 支撑机构</strong>
+                    <span>岭南市数据报告中心</span>
+                    <span>·</span>
+                    <span>岭南市城市策略研究中心</span>
+                    <span style="margin-left:auto;opacity:0.7;">提供协作</span>
+                </div>
+                <div style="margin-top:14px;font-size:14px;color:#345a7a;background:#eaf1fa;padding:10px 18px;border-radius:40px;display:inline-block;">
+                    🏢 行政办公厅 · 综合科 &nbsp;│&nbsp; 📐 发展规划局 · 战略组
+                </div>
+            </div>
+            <div style="background:#f3f8ff;border-radius:20px;padding:16px 22px;margin:12px 0;font-size:15px;color:#1f3c57;">
+                <strong>📢 关于岭南</strong>
+                <p style="margin-top:4px;">以规划驱动、数字赋能的虚拟城市发展项目，秉持「前瞻 · 务实 · 开放」理念。</p>
+            </div>
+        </div>
+
+        <!-- ===== 团队运营 ===== -->
+        <div id="page-team" class="page hidden">
+            <div style="margin:6px 0 8px;">
+                <span style="font-size:26px;font-weight:700;color:#0a2540;">👥 团队运营</span>
+                <span style="font-size:14px;color:#5b6f82;background:#eef2f7;padding:4px 18px;border-radius:30px;margin-left:10px;">核心成员</span>
+            </div>
+            <div class="profile-card">
+                <div class="name">航洛</div>
+                <div class="title">🏛️ 岭南市创建者</div>
+                <div class="info-row">📅 加入时间：2026年5月</div>
+                <div class="info-row">🏙️ 负责领域：城市规划 · 建设 · 交通 · 宣传</div>
+                <div class="bio">「为有心中山海，万事终将为成」</div>
+                <div class="contact">📧 QQ：853175561</div>
+            </div>
+            <div style="background:#f5f8fc;border-radius:16px;padding:16px 20px;font-size:15px;color:#3a5b7a;border:1px solid #e4ecf5;margin-top:6px;">
+                <strong>📌 当前负责</strong>
+                <p style="margin-top:4px;line-height:1.7;">岭南市整体规划统筹、跨部门协调、城市形象建设及轨道交通推进。</p>
+            </div>
+            <div class="bottom-tip">
+                <span>🚀</span>
+                到底啦～回主页看看吧！
+            </div>
+        </div>
+
+        <!-- ===== 关于岭南 ===== -->
+        <div id="page-about" class="page hidden">
+            <div class="slogan" style="margin-top:0;">
+                <h2>🏛️ 关于岭南市</h2>
+                <span>虚拟都市 · 无限可能</span>
+            </div>
+            <div class="card">
+                <h3>📖 城市理念</h3>
+                <p>以规划驱动、数字赋能的虚拟城市发展项目，秉持「前瞻 · 务实 · 开放」理念。</p>
+                <p style="margin-top:8px;font-size:15px;color:#476280;">致力于打造一个兼具现代感与人文温度的虚拟都市范本。</p>
+            </div>
+            <div class="card">
+                <h3>🗺️ 发展历程</h3>
+                <ul>
+                    <li>2026.05 · 岭南市正式创立</li>
+                    <li>2026.06 · 首版城市规划草案完成</li>
+                    <li>2026.07 · 组织架构确立，各部门启动</li>
+                    <li>2026.08 · 岭西区、岭东区重点推进</li>
+                </ul>
+            </div>
+            <div class="bottom-tip">
+                <span>🚀</span>
+                到底啦～回主页看看吧！
+            </div>
+        </div>
+
+        <!-- ===== 组织架构 ===== -->
+        <div id="page-org" class="page hidden">
+            <div class="org" style="margin-top:0;">
+                <div class="title">🏛️ 岭南市 · 组织架构</div>
+                <div class="org-level">
+                    <div class="org-root">岭南市 · 市政团队</div>
+                    <div class="org-branches">
+                        <span class="org-item">行政办公厅</span>
+                        <span class="org-item">发展规划局</span>
+                        <span class="org-item">城市建设局</span>
+                        <span class="org-item">交通运输局</span>
+                        <span class="org-item">对外联络部</span>
+                        <span class="org-item">数字宣传中心</span>
+                        <span class="org-item">岭南都市研究院</span>
+                        <span class="org-item rail">🚇 城市轨道交通有限公司</span>
+                    </div>
+                </div>
+                <div class="support-line">
+                    <strong>🔹 支撑机构</strong>
+                    <span>岭南市数据报告中心</span>
+                    <span>·</span>
+                    <span>岭南市城市策略研究中心</span>
+                    <span style="margin-left:auto;opacity:0.7;">提供协作</span>
+                </div>
+                <div style="margin-top:14px;font-size:14px;color:#345a7a;background:#eaf1fa;padding:10px 18px;border-radius:40px;display:inline-block;">
+                    🏢 行政办公厅 · 综合科 &nbsp;│&nbsp; 📐 发展规划局 · 战略组
+                </div>
+            </div>
+            <div style="background:#f5f8fc;border-radius:16px;padding:16px 20px;font-size:15px;color:#3a5b7a;border:1px solid #e4ecf5;">
+                <strong>🚇 轨道交通有限公司</strong>
+                <p style="margin-top:4px;line-height:1.6;">负责岭南市城市轨道交通线网规划、建设及运营管理，当前处于前期筹备阶段。</p>
+            </div>
+            <div class="bottom-tip">
+                <span>📋</span>
+                点击导航「部门详情」查看各部门介绍
+            </div>
+        </div>
+
+        <!-- ===== 部门详情（独立页面） ===== -->
+        <div id="page-dept" class="page hidden">
+            <div class="slogan" style="margin-top:0;">
+                <h2>🏛️ 部门详情</h2>
+                <span>岭南市 · 各机构介绍</span>
+            </div>
+
+            <!-- 部门列表 -->
+            <div id="dept-list" class="dept-list">
+                <div class="dept-grid">
+                    <div class="dept-card" data-dept="行政办公厅">
+                        <span class="dept-icon">🏢</span>
+                        <div class="dept-name">行政办公厅</div>
+                    </div>
+                    <div class="dept-card" data-dept="发展规划局">
+                        <span class="dept-icon">📐</span>
+                        <div class="dept-name">发展规划局</div>
+                    </div>
+                    <div class="dept-card" data-dept="城市建设局">
+                        <span class="dept-icon">🏗️</span>
+                        <div class="dept-name">城市建设局</div>
+                    </div>
+                    <div class="dept-card" data-dept="交通运输局">
+                        <span class="dept-icon">🚦</span>
+                        <div class="dept-name">交通运输局</div>
+                    </div>
+                    <div class="dept-card" data-dept="对外联络部">
+                        <span class="dept-icon">🤝</span>
+                        <div class="dept-name">对外联络部</div>
+                    </div>
+                    <div class="dept-card" data-dept="数字宣传中心">
+                        <span class="dept-icon">📱</span>
+                        <div class="dept-name">数字宣传中心</div>
+                    </div>
+                    <div class="dept-card" data-dept="岭南都市研究院">
+                        <span class="dept-icon">🧭</span>
+                        <div class="dept-name">岭南都市研究院</div>
+                    </div>
+                    <div class="dept-card" data-dept="城市轨道交通有限公司">
+                        <span class="dept-icon">🚇</span>
+                        <div class="dept-name">城市轨道交通有限公司</div>
+                    </div>
+                </div>
+                <div class="bottom-tip" style="padding-top:6px;">
+                    <span>👆</span>
+                    点击部门卡片查看详情
+                </div>
+            </div>
+
+            <!-- 部门详情子页面 -->
+            <div id="dept-detail-行政办公厅" class="dept-detail">
+                <div class="detail-card">
+                    <span class="big-icon">🏢</span>
+                    <div class="dept-name">行政办公厅</div>
+                    <div class="dept-desc">岭南市行政运转中枢，负责统筹协调、公文管理及日常事务。</div>
+                    <span class="back-link" onclick="backToDeptList()">← 返回部门列表</span>
+                </div>
+            </div>
+            <div id="dept-detail-发展规划局" class="dept-detail">
+                <div class="detail-card">
+                    <span class="big-icon">📐</span>
+                    <div class="dept-name">发展规划局</div>
+                    <div class="dept-desc">负责岭南市城市发展战略、中长期规划及经济模拟研究。</div>
+                    <span class="back-link" onclick="backToDeptList()">← 返回部门列表</span>
+                </div>
+            </div>
+            <div id="dept-detail-城市建设局" class="dept-detail">
+                <div class="detail-card">
+                    <span class="big-icon">🏗️</span>
+                    <div class="dept-name">城市建设局</div>
+                    <div class="dept-desc">主管城市基础设施建设、建筑设计及工程监管。</div>
+                    <span class="back-link" onclick="backToDeptList()">← 返回部门列表</span>
+                </div>
+            </div>
+            <div id="dept-detail-交通运输局" class="dept-detail">
+                <div class="detail-card">
+                    <span class="big-icon">🚦</span>
+                    <div class="dept-name">交通运输局</div>
+                    <div class="dept-desc">负责城市道路交通、公交系统及智能调度管理。</div>
+                    <span class="back-link" onclick="backToDeptList()">← 返回部门列表</span>
+                </div>
+            </div>
+            <div id="dept-detail-对外联络部" class="dept-detail">
+                <div class="detail-card">
+                    <span class="big-icon">🤝</span>
+                    <div class="dept-name">对外联络部</div>
+                    <div class="dept-desc">负责跨区域合作、友好城市对接及对外交流事务。</div>
+                    <span class="back-link" onclick="backToDeptList()">← 返回部门列表</span>
+                </div>
+            </div>
+            <div id="dept-detail-数字宣传中心" class="dept-detail">
+                <div class="detail-card">
+                    <span class="big-icon">📱</span>
+                    <div class="dept-name">数字宣传中心</div>
+                    <div class="dept-desc">负责城市形象宣传、视觉设计及新媒体内容创作。</div>
+                    <span class="back-link" onclick="backToDeptList()">← 返回部门列表</span>
+                </div>
+            </div>
+            <div id="dept-detail-岭南都市研究院" class="dept-detail">
+                <div class="detail-card">
+                    <span class="big-icon">🧭</span>
+                    <div class="dept-name">岭南都市研究院</div>
+                    <div class="dept-desc">专注城市模型研究、交通仿真及前沿建筑技术探索。</div>
+                    <span class="back-link" onclick="backToDeptList()">← 返回部门列表</span>
+                </div>
+            </div>
+            <div id="dept-detail-城市轨道交通有限公司" class="dept-detail">
+                <div class="detail-card">
+                    <span class="big-icon">🚇</span>
+                    <div class="dept-name">城市轨道交通有限公司</div>
+                    <div class="dept-desc">负责岭南市城市轨道交通线网规划、建设及运营管理。</div>
+                    <span class="back-link" onclick="backToDeptList()">← 返回部门列表</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 加入我们 ===== -->
+        <div id="page-join" class="page hidden">
+            <div class="slogan" style="margin-top:0;">
+                <h2>📢 加入我们</h2>
+                <span>共建岭南 · 共创未来</span>
+            </div>
+            <div class="card">
+                <h3>🏛️ 关于岭南市</h3>
+                <p>岭南市是一座以规划驱动、数字赋能的虚拟城市，秉持「前瞻 · 务实 · 开放」理念，致力于打造兼具现代感与人文温度的虚拟都市范本。</p>
+            </div>
+            <div class="join-highlight">
+                <strong>👥 我们正在寻找同好</strong>
+                <p style="margin-top:4px;font-size:15px;color:#2a4058;">无论你是经验丰富的建造者，还是对虚拟城市感兴趣的新朋友，只要热爱城市规划和建设，都欢迎加入！</p>
+            </div>
+            <div class="join-highlight" style="border-left-color:#e8b86d;">
+                <strong>📌 加入方式</strong>
+                <p style="margin-top:4px;font-size:15px;color:#2a4058;">请添加创建者 <span class="qq">QQ：853175561</span></p>
+                <p style="font-size:14px;color:#5b6f82;">（添加时请备注“加入岭南市建设”）</p>
+            </div>
+            <div class="card">
+                <h3>📋 当前招募方向</h3>
+                <div class="join-dir">
+                    <span>🏗️ 城市建设 · 建筑设计 · 道路规划</span>
+                    <span>🚇 交通运输 · 地铁线路 · 铁路建设</span>
+                    <span>📸 宣传记录 · 截图录像 · 文案编辑</span>
+                    <span>📐 发展规划 · 区域统筹 · 创意构思</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>💡 加入后你将获得</h3>
+                <div class="join-benefit">参与一座属于MC的虚拟城市的共同建设</div>
+                <div class="join-benefit">与志同道合的伙伴一起规划、设计、创造</div>
+                <div class="join-benefit">在中华文化的深厚底蕴中，留下属于你的建筑印记</div>
+            </div>
+            <div style="background:#f3f8ff;border-radius:16px;padding:18px 20px;margin:12px 0;text-align:center;border:1px solid #dce8f5;">
+                <p style="font-size:20px;font-weight:600;color:#0a2540;">📢 岭南市，期待你的加入！</p>
+            </div>
+            <div class="bottom-tip">
+                <span>🚀</span>
+                到底啦～回主页看看吧！
+            </div>
+        </div>
+
+        <div class="footer">
+            岭南市 · 虚拟规划门户
+        </div>
+
+    </div>
+
+    <script>
+        // ===== 欢迎页 =====
+        const splash = document.getElementById('splash');
+        const enterBtn = document.getElementById('enterBtn');
+        if (sessionStorage.getItem('entered')) {
+            splash.classList.add('hidden');
+        }
+        enterBtn.addEventListener('click', function() {
+            splash.classList.add('hidden');
+            sessionStorage.setItem('entered', 'true');
+        });
+
+        // ===== 导航切换 =====
+        const navLinks = document.querySelectorAll('.nav a');
+        const pages = {
+            home: document.getElementById('page-home'),
+            team: document.getElementById('page-team'),
+            about: document.getElementById('page-about'),
+            org: document.getElementById('page-org'),
+            dept: document.getElementById('page-dept'),
+            join: document.getElementById('page-join')
+        };
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                Object.values(pages).forEach(p => p.classList.add('hidden'));
+                const target = this.dataset.page;
+                if (pages[target]) {
+                    pages[target].classList.remove('hidden');
+                    // 如果切换到部门详情页，确保显示列表、隐藏详情
+                    if (target === 'dept') {
+                        document.getElementById('dept-list').classList.remove('hidden');
+                        document.querySelectorAll('.dept-detail').forEach(d => d.classList.remove('active'));
+                    }
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // ===== 部门卡片点击 =====
+        document.querySelectorAll('.dept-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const deptName = this.dataset.dept;
+                document.getElementById('dept-list').classList.add('hidden');
+                document.querySelectorAll('.dept-detail').forEach(d => d.classList.remove('active'));
+                const target = document.getElementById('dept-detail-' + deptName);
+                if (target) target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // ===== 返回部门列表 =====
+        function backToDeptList() {
+            document.querySelectorAll('.dept-detail').forEach(d => d.classList.remove('active'));
+            document.getElementById('dept-list').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
