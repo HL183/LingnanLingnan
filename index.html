@@ -9,29 +9,31 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif; }
         body { background: #e8edf4; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
         .container { max-width: 1200px; width: 100%; background: #ffffff; border-radius: 36px; padding: 35px 45px 40px; box-shadow: 0 20px 50px rgba(0, 20, 40, 0.10); position: relative; overflow: hidden; }
+        
+        /* 全局链接去除下划线 */
         a, a:link, a:visited, a:hover, a:active { text-decoration: none !important; color: inherit !important; }
-        .nav a, .nav a:link, .nav a:visited { text-decoration: none !important; cursor: pointer; }
         
         /* 头部样式 */
         .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; border-bottom: 2px solid #e9edf4; padding-bottom: 18px; }
         .header-left { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         .city-name { font-size: 32px; font-weight: 700; color: #0a2540; }
-        .city-sub { font-size: 16px; color: #5b6f82; background: #eef2f7; padding: 4px 20px; border-radius: 40px; }
+        
+        /* 为副标题添加交互效果 */
+        .city-sub { font-size: 16px; color: #5b6f82; background: #eef2f7; padding: 4px 20px; border-radius: 40px; cursor: pointer; transition: all 0.2s; display: inline-block; }
+        .city-sub:hover { background: #dce8f5; color: #1a5a8a; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(26,90,138,0.1); }
+        
         .header-right { display: flex; align-items: center; }
         .clock-box { font-size: 15px; font-weight: 600; color: #1a5a8a; background: #f0f6ff; padding: 6px 16px; border-radius: 30px; border: 1px solid #dce8f5; display: flex; align-items: center; gap: 6px; }
 
         .nav { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 22px 0 20px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
-        .nav a { font-size: 16px; font-weight: 600; color: #2c3e50; padding: 6px 2px; border-bottom: 3px solid transparent; transition: 0.2s; }
+        .nav a { font-size: 16px; font-weight: 600; color: #2c3e50; padding: 6px 2px; border-bottom: 3px solid transparent; transition: 0.2s; cursor: pointer; }
         .nav a.active { color: #1a5a8a; border-bottom-color: #1a5a8a; }
         .nav a:hover { color: #0a2a44; border-bottom-color: #8aafcf; }
         
-        /* 完美触发动画的类 */
+        /* 页面切换动画 */
         .page { display: block; }
         .page.hidden { display: none; }
-        /* 只有显示时才触发动画，通过 JS 动态添加 */
-        .page.animate {
-            animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        .page.animate { animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeUp { 
             0% { opacity: 0; transform: translateY(15px); } 
             100% { opacity: 1; transform: translateY(0); } 
@@ -57,8 +59,12 @@
         .org-level { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; }
         .org-root { background: #1c3a5a; color: white; padding: 12px 32px; border-radius: 60px; font-weight: 600; font-size: 18px; white-space: nowrap; }
         .org-branches { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+        
+        /* 为轨道交通添加悬停提示的效果修饰 */
         .org-item { background: white; border: 1px solid #cdddee; padding: 8px 24px; border-radius: 40px; font-weight: 500; color: #1b3c5e; font-size: 15px; cursor: default; user-select: none; }
-        .org-item.rail { background: #fff; border-color: #cdddee; color: #1b3c5e; }
+        .org-item.rail { background: #fff; border-color: #cdddee; color: #1b3c5e; cursor: help; transition: 0.2s; }
+        .org-item.rail:hover { border-color: #2b6f9e; background: #f4f9ff; color: #1a5a8a; }
+
         .support-line { margin-top: 20px; padding-top: 16px; border-top: 1px dashed #c7d8ea; font-size: 14px; color: #3a5b7a; display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: center; }
         .support-line strong { font-weight: 600; color: #133454; }
         .footer { margin-top: 30px; text-align: center; font-size: 14px; color: #5b738b; border-top: 1px solid #e4ebf3; padding-top: 22px; }
@@ -168,14 +174,14 @@
         <div class="header">
             <div class="header-left">
                 <span class="city-name">🌆 岭南市</span>
-                <span class="city-sub">Lingnan City · 虚拟都市</span>
+                <!-- 彩蛋：点击跳转B站，新标签页打开 -->
+                <a href="https://b23.tv/9QoH1Ae" target="_blank" class="city-sub">Lingnan City · 虚拟都市</a>
             </div>
             <div class="header-right">
                 <div class="clock-box" id="clock">⏱️ 加载时间中...</div>
             </div>
         </div>
 
-        <!-- 修复了 href 的问题 -->
         <div class="nav">
             <a href="javascript:void(0)" class="active" data-page="home">首页</a>
             <a href="javascript:void(0)" data-page="team">团队运营</a>
@@ -231,7 +237,8 @@
                         <span class="org-item">对外联络部</span>
                         <span class="org-item">数字宣传中心</span>
                         <span class="org-item">岭南都市研究院</span>
-                        <span class="org-item rail">🚇 城市轨道交通有限公司</span>
+                        <!-- 彩蛋：悬浮提示 -->
+                        <span class="org-item rail" title="通往海江新城的列车正在疾驰">🚇 城市轨道交通有限公司</span>
                     </div>
                 </div>
                 <div class="support-line">
@@ -313,7 +320,8 @@
                         <span class="org-item">对外联络部</span>
                         <span class="org-item">数字宣传中心</span>
                         <span class="org-item">岭南都市研究院</span>
-                        <span class="org-item rail">🚇 城市轨道交通有限公司</span>
+                        <!-- 彩蛋：悬浮提示 -->
+                        <span class="org-item rail" title="通往海江新城的列车正在疾驰">🚇 城市轨道交通有限公司</span>
                     </div>
                 </div>
                 <div class="support-line">
@@ -436,7 +444,6 @@
                 navLinks.forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
                 
-                // 隐藏所有页面，移除动画类
                 Object.values(pages).forEach(p => {
                     p.classList.add('hidden');
                     p.classList.remove('animate');
@@ -444,14 +451,8 @@
 
                 const target = this.dataset.page;
                 if (pages[target]) {
-                    // 先移除 hidden
                     pages[target].classList.remove('hidden');
-                    
-                    // 强制浏览器重绘（重排）技巧：读取一次 offsetWidth
-                    // 这样浏览器才会把新的样式（加上 animate）应用到重绘中，动画就不会丢失
-                    void pages[target].offsetWidth; 
-                    
-                    // 加上动画类
+                    void pages[target].offsetWidth; // 强制重绘，触发动画
                     pages[target].classList.add('animate');
 
                     if (target === 'dept') {
@@ -476,7 +477,7 @@
                 const target = document.getElementById('dept-detail-' + deptName);
                 if (target) {
                     target.classList.add('active');
-                    void target.offsetWidth; // 同样触发动画重排
+                    void target.offsetWidth; // 触发动画
                     target.classList.add('animate');
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
