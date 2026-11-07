@@ -10,17 +10,33 @@
         body { background: #e8edf4; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
         .container { max-width: 1200px; width: 100%; background: #ffffff; border-radius: 36px; padding: 35px 45px 40px; box-shadow: 0 20px 50px rgba(0, 20, 40, 0.10); position: relative; overflow: hidden; }
         a, a:link, a:visited, a:hover, a:active { text-decoration: none !important; color: inherit !important; }
-        .nav a, .nav a:link, .nav a:visited { text-decoration: none !important; }
+        .nav a, .nav a:link, .nav a:visited { text-decoration: none !important; cursor: pointer; }
+        
+        /* 头部样式 */
         .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; border-bottom: 2px solid #e9edf4; padding-bottom: 18px; }
+        .header-left { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         .city-name { font-size: 32px; font-weight: 700; color: #0a2540; }
         .city-sub { font-size: 16px; color: #5b6f82; background: #eef2f7; padding: 4px 20px; border-radius: 40px; }
+        .header-right { display: flex; align-items: center; }
+        .clock-box { font-size: 15px; font-weight: 600; color: #1a5a8a; background: #f0f6ff; padding: 6px 16px; border-radius: 30px; border: 1px solid #dce8f5; display: flex; align-items: center; gap: 6px; }
+
         .nav { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 22px 0 20px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
-        .nav a { text-decoration: none !important; font-size: 16px; font-weight: 600; color: #2c3e50; padding: 6px 2px; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.2s; }
+        .nav a { font-size: 16px; font-weight: 600; color: #2c3e50; padding: 6px 2px; border-bottom: 3px solid transparent; transition: 0.2s; }
         .nav a.active { color: #1a5a8a; border-bottom-color: #1a5a8a; }
         .nav a:hover { color: #0a2a44; border-bottom-color: #8aafcf; }
-        .page { display: block; animation: fadeUp 0.25s ease; }
+        
+        /* 完美触发动画的类 */
+        .page { display: block; }
         .page.hidden { display: none; }
-        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        /* 只有显示时才触发动画，通过 JS 动态添加 */
+        .page.animate {
+            animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeUp { 
+            0% { opacity: 0; transform: translateY(15px); } 
+            100% { opacity: 1; transform: translateY(0); } 
+        }
+
         .slogan { background: linear-gradient(135deg, #f0f5fe, #e6edf8); border-radius: 24px; padding: 24px 32px; margin: 8px 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         .slogan h2 { font-size: 24px; font-weight: 500; color: #163753; }
         .slogan span { background: rgba(255,255,255,0.6); padding: 4px 24px; border-radius: 60px; font-weight: 500; color: #1c4a6e; font-size: 15px; }
@@ -85,13 +101,54 @@
         .btn-enter { margin-top: 28px; padding: 14px 52px; font-size: 20px; font-weight: 600; color: #fff; background: #1a3a5a; border: none; border-radius: 60px; cursor: pointer; transition: 0.25s; box-shadow: 0 6px 20px rgba(26,58,90,0.25); letter-spacing: 2px; }
         .btn-enter:hover { background: #0a2a44; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(26,58,90,0.30); }
         .btn-enter:active { transform: scale(0.96); }
-        @media (max-width: 768px) { body { padding: 10px; } .container { padding: 18px 16px 28px; border-radius: 24px; } .city-name { font-size: 24px; } .city-sub { font-size: 12px; padding: 3px 12px; } .nav { gap: 4px 14px; } .nav a { font-size: 14px; } .slogan { flex-direction: column; text-align: center; gap: 10px; padding: 18px 16px; } .slogan h2 { font-size: 20px; } .org-level { flex-direction: column; align-items: flex-start; } .org-root { white-space: normal; font-size: 16px; padding: 10px 22px; } .profile-card .name { font-size: 24px; } .join-dir span { font-size: 13px; padding: 4px 14px; } .card { padding: 16px 16px; } .org { padding: 18px 16px; } .profile-card { padding: 20px 18px; } .support-line { flex-direction: column; align-items: flex-start; gap: 6px; } .support-line span { font-size: 13px; } .dept-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } .dept-detail .detail-card { padding: 22px 18px; } .dept-detail .detail-card .dept-name { font-size: 22px; } .splash h1 { font-size: 32px; } .splash .sub { font-size: 16px; padding: 4px 18px; } .splash .desc { font-size: 15px; padding: 0 10px; } .btn-enter { padding: 12px 36px; font-size: 18px; } .project-item { padding: 14px 16px; } .project-item .proj-name { font-size: 15px; } .project-item p { font-size: 13px; } }
-        @media (max-width: 480px) { .splash .city-icon { font-size: 52px; } .splash h1 { font-size: 26px; } .splash .sub { font-size: 14px; } .splash .desc { font-size: 14px; } .btn-enter { padding: 10px 28px; font-size: 16px; } .dept-grid { grid-template-columns: 1fr 1fr; } .dept-grid .dept-card { padding: 14px 10px; } .dept-grid .dept-card .dept-icon { font-size: 28px; } .dept-grid .dept-card .dept-name { font-size: 14px; } }
+        
+        @media (max-width: 768px) { 
+            body { padding: 10px; } 
+            .container { padding: 18px 16px 28px; border-radius: 24px; } 
+            .header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .header-left { gap: 8px; }
+            .city-name { font-size: 24px; } 
+            .city-sub { font-size: 12px; padding: 3px 12px; } 
+            .clock-box { font-size: 13px; padding: 4px 12px; }
+            .nav { gap: 4px 14px; } 
+            .nav a { font-size: 14px; } 
+            .slogan { flex-direction: column; text-align: center; gap: 10px; padding: 18px 16px; } 
+            .slogan h2 { font-size: 20px; } 
+            .org-level { flex-direction: column; align-items: flex-start; } 
+            .org-root { white-space: normal; font-size: 16px; padding: 10px 22px; } 
+            .profile-card .name { font-size: 24px; } 
+            .join-dir span { font-size: 13px; padding: 4px 14px; } 
+            .card { padding: 16px 16px; } 
+            .org { padding: 18px 16px; } 
+            .profile-card { padding: 20px 18px; } 
+            .support-line { flex-direction: column; align-items: flex-start; gap: 6px; } 
+            .support-line span { font-size: 13px; } 
+            .dept-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } 
+            .dept-detail .detail-card { padding: 22px 18px; } 
+            .dept-detail .detail-card .dept-name { font-size: 22px; } 
+            .splash h1 { font-size: 32px; } 
+            .splash .sub { font-size: 16px; padding: 4px 18px; } 
+            .splash .desc { font-size: 15px; padding: 0 10px; } 
+            .btn-enter { padding: 12px 36px; font-size: 18px; } 
+            .project-item { padding: 14px 16px; } 
+            .project-item .proj-name { font-size: 15px; } 
+            .project-item p { font-size: 13px; } 
+        }
+        @media (max-width: 480px) { 
+            .splash .city-icon { font-size: 52px; } 
+            .splash h1 { font-size: 26px; } 
+            .splash .sub { font-size: 14px; } 
+            .splash .desc { font-size: 14px; } 
+            .btn-enter { padding: 10px 28px; font-size: 16px; } 
+            .dept-grid { grid-template-columns: 1fr 1fr; } 
+            .dept-grid .dept-card { padding: 14px 10px; } 
+            .dept-grid .dept-card .dept-icon { font-size: 28px; } 
+            .dept-grid .dept-card .dept-name { font-size: 14px; } 
+        }
     </style>
 </head>
 <body>
 
-    <!-- ===== 欢迎页 ===== -->
     <div class="splash" id="splash">
         <div class="city-icon">🏙️</div>
         <h1>岭南市</h1>
@@ -106,25 +163,29 @@
         <button class="btn-enter" id="enterBtn">进入网站</button>
     </div>
 
-    <!-- ===== 主内容 ===== -->
     <div class="container">
 
         <div class="header">
-            <span class="city-name">🌆 岭南市</span>
-            <span class="city-sub">Lingnan City · 虚拟都市</span>
+            <div class="header-left">
+                <span class="city-name">🌆 岭南市</span>
+                <span class="city-sub">Lingnan City · 虚拟都市</span>
+            </div>
+            <div class="header-right">
+                <div class="clock-box" id="clock">⏱️ 加载时间中...</div>
+            </div>
         </div>
 
+        <!-- 修复了 href 的问题 -->
         <div class="nav">
-            <a href="#" class="active" data-page="home">首页</a>
-            <a href="#" data-page="team">团队运营</a>
-            <a href="#" data-page="about">关于岭南</a>
-            <a href="#" data-page="org">组织架构</a>
-            <a href="#" data-page="dept">部门详情</a>
-            <a href="#" data-page="join">加入我们</a>
+            <a href="javascript:void(0)" class="active" data-page="home">首页</a>
+            <a href="javascript:void(0)" data-page="team">团队运营</a>
+            <a href="javascript:void(0)" data-page="about">关于岭南</a>
+            <a href="javascript:void(0)" data-page="org">组织架构</a>
+            <a href="javascript:void(0)" data-page="dept">部门详情</a>
+            <a href="javascript:void(0)" data-page="join">加入我们</a>
         </div>
 
-        <!-- ===== 首页 ===== -->
-        <div id="page-home" class="page">
+        <div id="page-home" class="page animate">
             <div class="slogan">
                 <h2>🏙️ 岭南启新 · 方域拓途</h2>
                 <span>日新月异 · 共筑未来</span>
@@ -141,15 +202,11 @@
                     <h4 style="font-size: 18px; font-weight: 700; color: #0a2540; margin-bottom: 6px;">🚧 当前重点项目</h4>
                     <div class="project-item">
                         <div class="proj-name">岭南站 <span class="tag">海江新城枢纽</span></div>
-                        <p>定位为岭南市海江新城（主核）枢纽，采用"地面+二层+地下"三层立体布局。地面层设10台12线（含2条正线），二层设8台8线（地铁/市域），地下层设12台14线（含正线及地铁共线），首期总规模30台36线。建筑外观借鉴茂名站"Z"字形站房设计，南北分设站厅，中间由空中连廊跨越铁路连接，后期预留扩建空间。</p>
+                        <p>定位为岭南市海江新城（主核）枢纽，采用“地面+地下”立体布局。地面层设10台12线，主要服务市域铁路（含2条正线）；地下层设12台14线，全面接入城市地铁线路（含正线），首期总规模22台26线。建筑外观借鉴茂名站“Z”字形站房设计，南北分设站厅，中间由空中连廊跨越铁路连接，后期预留扩建空间。</p>
                     </div>
                     <div class="project-item">
-                        <div class="proj-name">奥展中心站 <span class="tag">文体活动交通节点</span></div>
-                        <p>定位为奥体会展专线枢纽，规模6台8线，地下一层引入地铁线路，紧邻岭江商务区。该站主要服务岭南市奥林匹克体育中心展览及活动中心体育馆（3万人容量，省运会开幕式专用场馆），定位为城市文体活动交通配套节点。</p>
-                    </div>
-                    <div class="project-item">
-                        <div class="proj-name">滨海新区站 <span class="tag">海陆空立体枢纽</span></div>
-                        <p>定位为岭南市最大综合交通枢纽，采用5个站厅分散式布局，总规模70台100线，地下2层+地上3层结构。规划接入3至5条地铁线，并与岭南市滨海国际机场（空铁联运）及岭南市岭城港（海铁联运）形成无缝衔接。滨海新区首期投资1000亿元，定位为省级海陆空立体枢纽。</p>
+                        <div class="proj-name">岭海新城 <span class="tag">城市政治金融中心</span></div>
+                        <p>定位为岭南市“一主一副两小核"空间格局中的城市小型核心新城，地处岭江与海江交汇处的核心地带，紧邻市行政中心。新城以金融商务为核心驱动，重点规划建设金融城基地与现代化中高层大厦楼群，并穿插布局多处中小型生态公园，打造宜居宜业的滨水商务区。目前项目已全面动工，正处于火热建设阶段。</p>
                     </div>
                 </div>
             </div>
@@ -194,7 +251,6 @@
             </div>
         </div>
 
-        <!-- ===== 团队运营 ===== -->
         <div id="page-team" class="page hidden">
             <div style="margin:6px 0 8px;">
                 <span style="font-size:26px;font-weight:700;color:#0a2540;">👥 团队运营</span>
@@ -218,7 +274,6 @@
             </div>
         </div>
 
-        <!-- ===== 关于岭南 ===== -->
         <div id="page-about" class="page hidden">
             <div class="slogan" style="margin-top:0;">
                 <h2>🏛️ 关于岭南市</h2>
@@ -235,7 +290,7 @@
                     <li>2026.05 · 前期规划启动</li>
                     <li>2026.06.11 · 岭南市正式开工</li>
                     <li>2026.07 · 组织架构确立，各部门启动</li>
-                    <li>2026.08 · 海江新城（主核）与滨海新区规划推进</li>
+                    <li>2026.08 · 岭海新城规划推进</li>
                     <li>2026.08.18 · 🏛️ 岭南市建城纪念日</li>
                 </ul>
             </div>
@@ -245,7 +300,6 @@
             </div>
         </div>
 
-        <!-- ===== 组织架构 ===== -->
         <div id="page-org" class="page hidden">
             <div class="org" style="margin-top:0;">
                 <div class="title">🏛️ 岭南市 · 组织架构</div>
@@ -283,7 +337,6 @@
             </div>
         </div>
 
-        <!-- ===== 部门详情 ===== -->
         <div id="page-dept" class="page hidden">
             <div class="slogan" style="margin-top:0;">
                 <h2>🏛️ 部门详情</h2>
@@ -312,7 +365,6 @@
             <div id="dept-detail-城市轨道交通有限公司" class="dept-detail"><div class="detail-card"><span class="big-icon">🚇</span><div class="dept-name">城市轨道交通有限公司</div><div class="dept-desc">负责岭南市城市轨道交通线网规划、建设及运营管理。</div><span class="back-link" onclick="backToDeptList()">← 返回部门列表</span></div></div>
         </div>
 
-        <!-- ===== 加入我们 ===== -->
         <div id="page-join" class="page hidden">
             <div class="slogan" style="margin-top:0;"><h2>📢 加入我们</h2><span>共建岭南 · 共创未来</span></div>
             <div class="card"><h3>🏛️ 关于岭南市</h3><p>岭南市是一座以规划驱动、数字赋能的虚拟城市，秉持「前瞻 · 务实 · 开放」理念，致力于打造兼具现代感与人文温度的虚拟都市范本。</p></div>
@@ -329,11 +381,26 @@
     </div>
 
     <script>
+        // ===== 实时时钟功能 =====
+        function updateClock() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const date = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const timeString = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
+            document.getElementById('clock').innerHTML = `⏱️ ${timeString}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
         // ===== 欢迎页控制 =====
         const splash = document.getElementById('splash');
         const enterBtn = document.getElementById('enterBtn');
 
-        // 如果之前进入过，直接隐藏欢迎页，显示首页
         if (sessionStorage.getItem('entered')) {
             splash.classList.add('hidden');
             document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
@@ -342,7 +409,6 @@
             document.querySelector('.nav a[data-page="home"]').classList.add('active');
         }
 
-        // 点击进入网站
         enterBtn.addEventListener('click', function() {
             splash.classList.add('hidden');
             sessionStorage.setItem('entered', 'true');
@@ -353,7 +419,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ===== 导航切换 =====
+        // ===== 导航切换逻辑 =====
         const navLinks = document.querySelectorAll('.nav a');
         const pages = {
             home: document.getElementById('page-home'),
@@ -369,10 +435,25 @@
                 e.preventDefault();
                 navLinks.forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
-                Object.values(pages).forEach(p => p.classList.add('hidden'));
+                
+                // 隐藏所有页面，移除动画类
+                Object.values(pages).forEach(p => {
+                    p.classList.add('hidden');
+                    p.classList.remove('animate');
+                });
+
                 const target = this.dataset.page;
                 if (pages[target]) {
+                    // 先移除 hidden
                     pages[target].classList.remove('hidden');
+                    
+                    // 强制浏览器重绘（重排）技巧：读取一次 offsetWidth
+                    // 这样浏览器才会把新的样式（加上 animate）应用到重绘中，动画就不会丢失
+                    void pages[target].offsetWidth; 
+                    
+                    // 加上动画类
+                    pages[target].classList.add('animate');
+
                     if (target === 'dept') {
                         document.getElementById('dept-list').classList.remove('hidden');
                         document.querySelectorAll('.dept-detail').forEach(d => d.classList.remove('active'));
@@ -387,17 +468,31 @@
             card.addEventListener('click', function() {
                 const deptName = this.dataset.dept;
                 document.getElementById('dept-list').classList.add('hidden');
-                document.querySelectorAll('.dept-detail').forEach(d => d.classList.remove('active'));
+                document.querySelectorAll('.dept-detail').forEach(d => {
+                    d.classList.remove('active');
+                    d.classList.remove('animate');
+                });
+                
                 const target = document.getElementById('dept-detail-' + deptName);
-                if (target) target.classList.add('active');
+                if (target) {
+                    target.classList.add('active');
+                    void target.offsetWidth; // 同样触发动画重排
+                    target.classList.add('animate');
+                }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
 
         // ===== 返回部门列表 =====
         function backToDeptList() {
-            document.querySelectorAll('.dept-detail').forEach(d => d.classList.remove('active'));
-            document.getElementById('dept-list').classList.remove('hidden');
+            document.querySelectorAll('.dept-detail').forEach(d => {
+                d.classList.remove('active');
+                d.classList.remove('animate');
+            });
+            const deptList = document.getElementById('dept-list');
+            deptList.classList.remove('hidden');
+            void deptList.offsetWidth;
+            deptList.classList.add('animate');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
